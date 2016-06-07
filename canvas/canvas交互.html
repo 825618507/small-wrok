@@ -1,0 +1,79 @@
+<html>
+    <style>
+        *{margin:0;padding:0;}
+
+        #one{border:1px solid;margin:10px auto;display:block;}
+        
+    </style>
+    <body>
+        <canvas id='one' >画布是内联元素</canvas> 
+        
+        
+        <script src='HTML/javascript/jquery.min.js'></script>
+        <script>
+        window.onload=function(){
+            var canvas=document.getElementById('one');
+            var control=document.getElementById('control');
+            var timer=null;
+            canvas.width=1024;
+            canvas.height=600;
+            var ctx = canvas.getContext("2d");
+
+            ctx.beginPath();
+            ctx.font='40px solid';
+            ctx.fillStyle='#000';
+            ctx.textAlign='center';
+            ctx.fillText('单击圆环变色',canvas.width/2,100);
+
+            
+            ctx.beginPath();
+            ctx.fillStyle='red' ;
+            ctx.lineWidth=3;
+            ctx.arc(canvas.width/2, canvas.height/2, 120, 0, Math.PI*2, false);
+            ctx.arc(canvas.width/2, canvas.height/2, 80, 0, Math.PI*2, true);
+            ctx.fill();
+            ctx.stroke();
+
+            
+
+            canvas.addEventListener('click', function(event){
+                detect(event,ctx);
+            });
+
+            function detect(event,ctx){
+                var x=event.clientX - canvas.getBoundingClientRect().left;
+                var y=event.clientY - canvas.getBoundingClientRect().top;
+                var R=parseInt( Math.random()*255 ),
+                    G=parseInt( Math.random()*255 ),
+                    B=parseInt( Math.random()*255 );
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                ctx.save();
+                ctx.beginPath();
+                ctx.font='40px solid';
+                ctx.fillStyle='#000';
+                ctx.textAlign='center';
+                ctx.fillText('单击圆环变色',canvas.width/2,100);
+                ctx.restore();
+
+                ctx.beginPath();
+                ctx.arc(canvas.width/2, canvas.height/2, 120, 0, Math.PI*2, false);
+                ctx.arc(canvas.width/2, canvas.height/2, 80, 0, Math.PI*2, true);
+
+                if( ctx.isPointInPath( x, y ) ){
+                    ctx.fillStyle = 'rgb(' + R + ',' + G + ',' + B + ')'
+                    ctx.lineWidth = 3;
+                    ctx.fill();
+                    ctx.stroke();
+                }else{
+                    ctx.fill();
+                    ctx.stroke();
+                }
+
+                
+            }
+        }
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,98 @@
+<html>
+    <style>
+        *{margin:0;padding:0;}
+
+        #one{border:1px solid;margin:10px auto;display:block;}
+        
+    </style>
+    <body>
+        <canvas id='one' >画布是内联元素</canvas> 
+        
+        
+        <script src='HTML/javascript/jquery.min.js'></script>
+        <script>
+        window.onload=function(){
+            var canvas=document.getElementById('one');
+            var control=document.getElementById('control');
+            var timer=null;
+            
+            canvas.width=1024;
+            canvas.height=600;
+
+            var oBallClip={
+                x: canvas.width/2,
+                y: canvas.height/2,
+                radius: 80,
+                vx: 5,
+                vy: 3,
+                color: '#fff',
+            }
+
+            var ctx=canvas.getContext("2d");
+            timer=setInterval(function(){
+                draw(ctx,oBallClip);
+                updateClip(ctx,oBallClip);
+            },30);
+        }
+
+
+        function draw(ctx,oBallClip){
+
+            var canvas = ctx.canvas;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            ctx.save();  //重要 clip是状态
+
+            ctx.beginPath();
+            ctx.fillStyle='#000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.beginPath();
+            ctx.fillStyle=oBallClip.color;
+            ctx.arc(oBallClip.x,oBallClip.y,oBallClip.radius,0,Math.PI*2);
+            ctx.fill();
+            ctx.clip();
+            
+
+            ctx.beginPath();
+            ctx.font='50px solid';
+            ctx.textAlign='center';
+            ctx.fillStyle='#058';
+            ctx.textBaseline='middle';
+            ctx.fillText('CANVAS',canvas.width/2,canvas.height/2);
+            ctx.fillText('CANVAS',canvas.width/2,canvas.height/5);
+            ctx.fillText('CANVAS',canvas.width/2,canvas.height/1.3);
+            ctx.fillText('CANVAS',canvas.width/5,canvas.height/2);
+            ctx.fillText('CANVAS',canvas.width/1.3,canvas.height/2);
+
+            ctx.restore();    //重要   
+        }
+        
+        function updateClip(ctx,oBall){
+            var canvas = ctx.canvas;
+            oBall.x += oBall.vx;
+            oBall.y += oBall.vy;
+
+            if( oBall.x <= oBall.radius ){
+                oBall.x = oBall.radius;
+                oBall.vx *= -1;
+            }
+            if( oBall.x >= canvas.width-oBall.radius ){
+                oBall.x = canvas.width-oBall.radius;
+                oBall.vx *= -1;
+            }
+            if( oBall.y <= oBall.radius ){
+                oBall.y = oBall.radius;
+                oBall.vy *= -1;
+            }
+            if( oBall.y >= canvas.height-oBall.radius ){
+                oBall.y = canvas.height-oBall.radius;
+                oBall.vy *= -1;
+            }
+        }
+
+        </script>
+        }
+    </body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<style>
+#text1{border:5px outside;border-radius:5px;}
+.textarea{display:block;border-radius:10px;margin:5px 0;
+background:rgba(219,21,21,0.5);color:black;width:500px;height:100px;
+padding:10px 5px;}
+</style>
+<script>
+	window.onload=function()
+	{
+		var oTxt=document.getElementById('text1');
+		var oBtn=document.getElementById('btn1');
+		var allMessage=document.getElementById('allMessage');
+		var aMessage=allMessage.getElementsByTagName('div');
+		oBtn.onclick=function()
+		{
+			leaveMessage();
+		};
+		oTxt.onkeydown=function(ev)
+		{
+			var oEvent=ev || window.event;
+			if(oEvent.shiftKey && oEvent.keyCode==13)
+			{
+				leaveMessage();
+			}
+		};
+		function leaveMessage()
+		{
+			var message=document.createElement('div');
+			message.className='textarea';
+			message.innerHTML=''+oTxt.value+'';
+			if(aMessage==0)
+			{
+				allMessage.appendChild(message);
+			}else{
+				allMessage.insertBefore(message,aMessage[0]);
+			}	
+		}
+	};
+</script>
+</head>
+
+<body>
+<input type='text' placeholder='请输入内容' id='text1'/>
+<input id='btn1' type='button' value='留言' />
+<div id='allMessage'>
+	
+</div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>无缝滚动</title>   
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style>
+
+        #div1{overflow:hidden;position:relative;width:800px;height:149px;margin:100px auto;}
+        #div1 ul{position:absolute;margin:0;padding:0;}
+        #div1 img{width:200px;height:149px;}
+        #div1 li{float:left;width:200px;height:149px;list-style:none;}
+    </style>
+    <script>
+    var timer=null;
+    window.onload=function()
+    {
+        var div1=document.getElementById('div1');
+        var oUl=div1.getElementsByTagName('ul')[0];
+        var aLi=oUl.getElementsByTagName('li');
+        oUl.innerHTML+=oUl.innerHTML;
+        oUl.style.width=aLi[0].offsetWidth*aLi.length+'px';
+        var speed=8;
+        function  move(){
+            
+            if(oUl.offsetLeft<-oUl.offsetWidth/2){
+                oUl.style.left='0';
+            }
+            if(oUl.offsetLeft>0)
+            {
+            oUl.style.left=-oUl.offsetWidth/2+'px';
+            }
+            oUl.style.left=oUl.offsetLeft+speed+'px';
+        }
+        clearInterval(timer);
+        timer=setInterval(move,30);
+        var ahref=document.getElementsByTagName('a');
+        ahref[0].onclick=function() {speed=-2;}
+        ahref[1].onclick=function() {speed=2;}
+        oUl.onmousemove=function()
+        {
+            clearInterval(timer);
+        }
+        oUl.onmouseout=function()
+        {
+            timer=setInterval(move,30);
+        }
+    }
+    </script>
+</head>
+
+<body>
+    <a href='#'>向左</a>
+    <a href='#'>向右</a>
+    <div id='div1'>
+    <ul>
+    <li><img src="../image/1.jpg" alt="1.jpg"></li>
+    <li><img src="../image/2.jpg" alt="1.jpg"></li>
+    <li><img src="../image/3.jpg" alt="1.jpg"></li>
+    <li><img src="../image/4.jpg" alt="1.jpg"></li></ul>
+    <br/><span>星期一</span>
+    </div>
+</body>
+</html>

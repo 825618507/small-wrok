@@ -1,0 +1,92 @@
+<html>
+    <style>
+        *{margin:0;padding:0;}
+
+        #one{border:1px solid;margin:10px auto;display:block;}
+        
+    </style>
+    <body>
+        <canvas id='one' >画布是内联元素</canvas> 
+        
+        
+        <script src='HTML/javascript/jquery.min.js'></script>
+        <script>
+        window.onload=function(){
+            var canvas=document.getElementById('one');
+            var control=document.getElementById('control');
+            var balls=[];
+            var timer=null;
+            canvas.width=1024;
+            canvas.height=600;
+
+            var ctx=canvas.getContext("2d");
+
+            for(var i=0;i<50;i++){
+                addBall();
+            }
+            drawBalls(ctx);
+            timer=setInterval(function(){
+                updateBalls();
+                drawBalls(ctx);
+            },30)
+            function addBall(){
+
+                var radius=parseInt( Math.random()*70 );
+                var x=Math.max( radius, parseInt( Math.random() * (canvas.width-radius) ) );
+                var y=Math.max( radius, parseInt( Math.random() * (canvas.height-radius) ) );
+                var R=parseInt( Math.random()*255 ),
+                    G=parseInt( Math.random()*255 ),
+                    B=parseInt( Math.random()*255 );
+                var aBall={
+                    x: x,
+                    y: y,
+                    color: 'rgb(' + R + ',' + G + ',' + B + ')' ,
+                    radius: radius,
+                    vx: Math.pow(-1 , Math.ceil( Math.random()*10 ) ) * 2 ,  //正负
+                    vy: Math.pow(-1 , Math.ceil( Math.random()*10 ) ) * 1.5 ,
+                };
+                balls.push(aBall);
+            }
+
+            function drawBalls(ctx){
+                ctx.clearRect(0, 0, canvas.width, canvas.height );
+                ctx.globalCompositeOperation = 'xor' ;
+                for(var i=0,len=balls.length; i<len; i++){
+                    ctx.beginPath();
+                    ctx.arc( balls[i].x, balls[i].y, balls[i].radius, 0, Math.PI*2 );
+                    ctx.fillStyle = balls[i].color ;
+                    ctx.fill();
+                }
+            }
+
+            function updateBalls(){
+                for(var i=0,len=balls.length; i<len; i++){
+                    balls[i].x += balls[i].vx ;
+                    balls[i].y += balls[i].vy ;
+
+                    //碰到边框
+                    if( balls[i].x <= balls[i].radius ){
+                        balls[i].x = balls[i].radius;
+                        balls[i].vx *= -1;
+                    }
+                    if( balls[i].x >= canvas.width-balls[i].radius ){
+                        balls[i].x = canvas.width-balls[i].radius;
+                        balls[i].vx *= -1;
+                    }
+                    if( balls[i].y <= balls[i].radius ){
+                        balls[i].y = balls[i].radius;
+                        balls[i].vy *= -1;
+                    }
+                    if( balls[i].y >= canvas.height-balls[i].radius ){
+                        balls[i].y = canvas.height-balls[i].radius;
+                        balls[i].vy *= -1;
+                    }
+                }
+            }
+        }
+            
+            
+
+        </script>
+    </body>
+</html>

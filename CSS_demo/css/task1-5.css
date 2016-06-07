@@ -1,0 +1,40 @@
+    *{margin:0;padding:0;}
+    h1,h2,h3,h4,h5,h6{margin-bottom:15px;}
+    h3,h4{color:#857785;}
+    img{width:80px;height:80px;}
+
+    header{height:60px;background:rgb(51,51,51);overflow:hidden;width:100%;}
+    header h1{float:left;height:60px;line-height:60px;margin-left:50px;}
+    header ul{float:right;margin-right:40px;height:60px;line-height:60px;}
+    header ul li{margin-left:30px;float:left;}
+    header ul li a{color:#fff;text-decoration:none;}
+
+    #middle{padding:20px;background:rgb(222,222,222);overflow:hidden;}
+    #middle .left{overflow:hidden;}
+    #middle .left div{padding:30px;background:#fff;margin-bottom:20px;}
+    #middle .left div p{line-height:30px;text-indent:2em;}
+    #middle .left div.essay img{width:350px;height:200px;margin:10px 0;}
+    #middle .left div.essay ul {margin-left:40px;margin-top:20px;list-style:none;}
+    #middle .left div.essay ul li{margin-bottom:10px;}
+    #middle .left div.picture{overflow:hidden;}
+    #middle .left div.picture dl{margin:20px 0 0 30px;}
+    #middle .left div.picture dl dd{float:left;border:1px solid #ccc;padding:15px;margin:0 15px 15px 0;}
+    #middle .left div.picture dl dd span{display:block;text-align: center;}
+    #middle .left div.table ol{margin:20px 0 20px 40px;font-weight:bold;}
+    #middle .left div.table ol li{padding:5px;}
+    #middle .left div.table table{width:100%;border-collapse:collapse;font-family:"Microsoft YaHei",tahoma,arial,"Hiragino Sans GB","\5b8b\4f53",sans-serif;text-indent:10px;}
+    #middle .left div.table table thead tr td{width:40%;background:rgb(51,51,51);height:30px;line-height:30px;}
+    #middle .left div.table table tbody tr td{height:25px;line-height:25px;border:1px solid #ccc;}
+    #middle .left div.table table tbody tr:last-child{background:#ccc;}
+    
+    #middle .right{float:right;margin-left:20px;padding:20px;overflow:hidden;font-family:"Microsoft YaHei",tahoma,arial,"Hiragino Sans GB","\5b8b\4f53",sans-serif;text-indent:10px;background:#fff;}
+    #middle .right h2{border-left:5px solid #ccc;padding:10px 10px;}
+    #middle .right form p{margin-bottom:20px;}
+    #middle .right form p span{float:left;width:150px;text-align:right;}
+    #middle .right form p.annotation{margin-left:150px;color:#948a94;}
+    #middle .right p.hobby label{margin-right:10px;}
+    #middle .right p textarea{width:300px;height:50px;}
+    #middle .right input[type='submit']{width:100%;height:50px;background:rgb(51,85,208);border-radius:15px;}
+    
+    footer{height:70px;background:#000;text-align:center;line-height:70px;}
+    footer p{color:#fff;font-family:"Microsoft YaHei",tahoma,arial,"Hiragino Sans GB","\5b8b\4f53";font-size:10px;}

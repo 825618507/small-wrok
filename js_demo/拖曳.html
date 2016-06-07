@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style> 
+body{margin:0;}
+div#main{margin:50px;width:150px;height:50px;background:red;opacity:0.5;position:absolute;}
+</style>
+<script>
+	window.onload=function()
+	{
+		var oDiv=document.getElementById('main');
+		oDiv.onmousedown=function(ev)
+		{
+			drag(this,ev);
+		};
+	};
+	function drag(obj,ev)
+	{
+		var oEvent=ev||window.event;
+			var oScrollTop=document.documentElement.scrollTop||document.body.scrollTop;
+			var oScrollLeft=document.documentElement.scrollLeft||document.body.scrollLeft;
+			var inTop=oEvent.clientY+oScrollTop-obj.offsetTop+parseInt(getComputedStyle(obj,false)['margin-top']);  
+			var inLeft=oEvent.clientX+oScrollLeft-obj.offsetLeft+parseInt(getComputedStyle(obj,false)['margin-left']);
+			document.onmousemove=function(ev)
+			{
+				var oEvent=ev||window.event;
+				var oScrollTop2=document.documentElement.scrollTop||document.body.scrollTop;
+				var oScrollLeft2=document.documentElement.scrollLeft||document.body.scrollLeft;
+				var Top=oEvent.clientY+oScrollTop2-inTop;
+				var Left=oEvent.clientX+oScrollLeft2-inLeft;
+				if(Top<-parseInt(getComputedStyle(obj,false)['margin-top']))
+				{
+					Top=-parseInt(getComputedStyle(obj,false)['margin-top']);
+				}
+				if(Left<-parseInt(getComputedStyle(obj,false)['margin-left']))
+				{
+					Left=-parseInt(getComputedStyle(obj,false)['margin-left']);
+				}
+				obj.style.top=Top+'px';
+				obj.style.left=Left+'px';
+			};
+			document.onmouseup=function()
+			{
+				document.onmousemove=null;
+				document.onmouseup=null;
+			};
+			return false;
+	}
+</script>
+</head>
+<body>
+<div id='main'>
+</div>
+</body>
+</html>
+

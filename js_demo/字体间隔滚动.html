@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>实现tab导航、反馈按钮固定效果</title>
+<style type="text/css">
+    *{margin:0;padding:0;}
+    a{color:#00f;}
+    #warp{width:500px;height:100px;margin:200px auto;overflow:hidden;background:#ccc;position:relative;}
+    #main{position:absolute;top:0;}
+    #ul1{list-style:none;}
+    #ul1 li{color:#000;text-indent:20px;line-height:25px;}
+</style>
+<script>
+    'use strict'
+    window.onload=function(){
+        var oWarp=document.getElementById('warp')
+        var oUl=document.getElementById('ul1');
+        var oDiv=document.getElementById('main')
+        var aLi=oUl.getElementsByTagName('li');
+        oUl.innerHTML+=oUl.innerHTML;
+        var timer=null;
+        var time=50;
+        var delay=500;
+        console.log(aLi[0].offsetHeigth);
+        timer=setInterval(startMove,time);
+        function startMove(){
+            var top=parseInt(getComputedStyle(oDiv,false)['top']);
+            console.log(top);
+           
+            if(top!=0 && -top%25===0)
+            {
+                clearInterval(timer);
+                oDiv.style.top=top-1+'px';
+                setTimeout(function(){
+                    timer=setInterval(startMove,time);
+                },delay);
+            }else{
+                oDiv.style.top=top-1+'px';
+                if(top===-oUl.offsetHeight/2+1)
+                {
+                    oDiv.style.top=0;
+                }
+                
+            }
+        }
+    };
+</script>
+</head>
+
+<body>
+    <div id='warp'>
+        <div id='main'>
+            <ul id='ul1'>
+                <li><a href="#">1.学会html5 绝对的屌丝逆袭（案例）</a><span>2013-09-18</span></li>
+                <li><a href="#">2.tab页面切换效果（案例）</a><span>2013-10-09</span></li>
+                <li><a href="#">3.圆角水晶按钮制作（案例）</a><span>2013-10-21</span></li>
+                <li><a href="#">4.HTML+CSS基础课程(系列)</a><span>2013-11-01</span></li>
+                <li><a href="#">5.分页页码制作（案例）</a><span>2013-11-06</span></li>
+                <li><a href="#">6.导航条菜单的制作（案例）</a><span>2013-11-08</span></li>
+                <li><a href="#">7.信息列表制作(案例)</a><span>2013-11-15</span></li>
+                <li><a href="#">8.下拉菜单制作(案例)</a><span>2013-11-22</span></li>
+                <li><a href="#">9.如何实现“新手引导”效果</a><span>2013-12-06</span></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

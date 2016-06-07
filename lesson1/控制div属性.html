@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>控制div属性</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<style>
+    *{margin:0;padding:0;}
+    #main{margin:50px auto;width:500px;text-align:center;}
+    #div1{width:100px;height:100px;background:black;margin:100px auto;}
+    input{width:60px;}
+</style>
+<script src='../jquery.min.js'></script>
+<script>
+    'use strict'
+    window.onload=function(){
+        var aBtn=document.getElementsByTagName('input');
+        var oDiv=document.getElementById('div1');
+        var aAttr=['background','background','height','width','display','display'];
+        var aVal=['blue','red','200px','200px','none','block'];
+        for(var i=0;i<aBtn.length;i++)
+        {
+            aBtn[i].index=i;
+            aBtn[i].onclick=function()
+            {
+                if(this.index===aBtn.length-1)
+                {
+                    oDiv.style.cssText='';
+                }else if(this.index===aBtn.length-2)
+                {
+                    if(getComputedStyle(oDiv,false)['display']==='block')
+                    {
+                        oDiv.style.display='none';
+                    }else{
+                        oDiv.style.display='block';
+                    }
+                }else{
+                    console.log('c')
+                    oDiv.style[aAttr[this.index]]=aVal[this.index]  ;
+                }
+            };
+        }
+    };
+</script>
+</head>
+<body>
+    <div id='main'>
+        <input type="button" value='变蓝' />
+        <input type="button" value='变红' />
+        <input type="button" value='变高' />
+        <input type="button" value='变宽' />
+        <input type="button" value='隐藏/显示' />
+        <input type="button" value='重置' />
+        <div id='div1'></div>
+    </div>
+</body>
+</html>

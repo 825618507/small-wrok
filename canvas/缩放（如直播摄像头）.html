@@ -1,0 +1,38 @@
+<html>
+    <style>
+        *{margin:0;padding:0;}
+
+    </style>
+    <body>
+        <canvas id='one' style='border:1px solid;margin:10px auto;display:block;'>画布是内联元素</canvas> 
+            
+        <script>
+        window.onload=function(){
+            var canvas=document.getElementById('one');
+            canvas.width=1024;
+            canvas.height=600;
+            var context=canvas.getContext("2d");
+
+            
+            var width=50,height=50,x=0,y=0;
+            context.lineWidth=3;
+            context.fillStyle='rgba(29,230,18,0.3)';
+            (function(){           //建立闭包，避免污染命名空间
+                var xWidth,xHeight;
+                for(var i=1;i<7;i++){
+                    context.beginPath();
+                    context.lineJoin='round';
+                    xWidth = i *width;
+                    xHeight = i * height;
+                    context.fillRect(x, y, xWidth, xHeight);
+                    context.strokeRect(x, y, xWidth, xHeight);
+                    x += xWidth/2;
+                    y += xHeight/2;
+                }
+            })();
+            
+            
+        }
+        </script>
+    </body>
+</html>

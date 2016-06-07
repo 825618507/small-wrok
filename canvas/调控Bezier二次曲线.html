@@ -1,0 +1,122 @@
+<html>
+    <style>
+        *{margin:0;padding:0;}
+        
+        #one{border:1px solid;margin:10px auto;display:block;}
+        #control{border:1px solid;position:absolute;left:0;right:0;top:0;bottom:0;margin:10px auto;}
+        #control>div{border:10px solid black;border-radius:50%;position:absolute;cursor:pointer;}
+        #div1{left:50px;top:100px;}
+        #div2{left:200px;top:100px;}
+        #div3{left:150px;top:200px;}
+    </style>
+    <body>
+        <canvas id='one' >画布是内联元素</canvas> 
+        <section id='control' >
+            <div id='div1'></div>
+            <div id='div2'></div>
+            <div id='div3'></div>
+        </section>
+        
+        <script src='../js/jquery.min.js'></script>
+        <script>
+        window.onload=function(){
+            var canvas=document.getElementById('one');
+            var control=document.getElementById('control');
+            canvas.width=1024;
+            canvas.height=400;
+            control.style.width=canvas.width;
+            control.style.height=canvas.height;
+
+            var ctx=canvas.getContext("2d");
+            var $aDiv=$('#control>div');
+            
+            
+
+            
+
+            drag(ctx,$aDiv);
+            function drawBezier(ctx,$aDiv){
+                var radius=$aDiv.eq(0).css('border-top').split(' ')[0];
+                radius=parseInt(radius);
+
+                var x0=$aDiv.eq(0).position().left+radius,
+                    y0=$aDiv.eq(0).position().top+radius,
+                    x1=$aDiv.eq(1).position().left+radius,
+                    y1=$aDiv.eq(1).position().top+radius,
+                    x2=$aDiv.eq(2).position().left+radius,
+                    y2=$aDiv.eq(2).position().top+radius;
+
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                //贝塞尔二次曲线
+                ctx.beginPath();
+                ctx.moveTo(x0, y0);
+                ctx.strokeStyle='red';
+                ctx.lineWidth=5;
+                ctx.quadraticCurveTo( x1, y1, x2, y2 );
+                ctx.stroke();
+
+                // 辅助线
+                ctx.beginPath();
+                ctx.moveTo(x0,y0);
+                ctx.lineTo(x1,y1);
+                ctx.lineTo(x2,y2);
+                ctx.lineWidth=3;
+                ctx.strokeStyle='black'
+                ctx.stroke();
+
+                //字
+                ctx.beginPath();
+                ctx.font='30px solid';
+                var linearGradient = ctx.createLinearGradient(700, 0, 900, 600);
+                linearGradient.addColorStop(0.0,'red');
+                linearGradient.addColorStop(0.5,'blue');
+                linearGradient.addColorStop(1.0,'black');
+                ctx.fillStyle= linearGradient;
+                ctx.fillText('移动黑点调控曲线',700,50);
+                var x=[x0,x1,x2];
+                var y=[y0,y1,y2];
+                for(var i=0;i<3;i++){
+                    ctx.fillText('(x'+ i + ',y0) = ' + '('+ x[i] + ',' + y[i] + ')' , 700,100+50*i);
+                }
+
+            }
+            function drag(ctx,$aDiv){
+                drawBezier(ctx,$aDiv);
+                $aDiv.mousedown(function(event){
+                    var _this=this;
+
+                    $(document).on('mousemove.drag',function(event){
+                        var radius=$aDiv.eq(0).css('border-top').split(' ')[0];
+                        radius=parseInt(radius);
+                        var x=event.pageX-$aDiv.eq(0).parent().offset().left-radius;
+                        var y=event.pageY-$aDiv.eq(0).parent().offset().top-radius;
+                        console.log(x)
+                        // 限制在画布里
+                        if(x>=canvas.width-radius){
+                            x=canvas.width-radius;
+                        }
+                        if(x<=-radius){
+                            x=-radius;
+                        }
+                        if(y>=canvas.height-radius){
+                            y=canvas.height-radius;
+                        }
+                        if(y<=-radius){
+                            y=-radius;
+                        }
+                        $(_this).css({'left':x,
+                                      'top': y });
+                        drawBezier(ctx,$aDiv);
+                        $(document).mouseup(function(){
+                            $(this).off('.drag');
+                        })
+                    });
+                })
+            }
+        }
+
+
+        </script>
+    </body>
+</html>
