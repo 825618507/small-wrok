@@ -1,0 +1,90 @@
+*{
+    margin:0;
+    padding:0;
+}
+#main{
+    margin:20px auto;
+    width:600px;
+    background:#EEE;
+    padding:20px;
+}
+.clearfix:after{
+    content:'';
+    display:block;
+    visibility:hidden;
+    height:0;
+    clear:both;
+}
+#main .game{
+    float:left;
+}
+#main .operation{
+    float:right;
+    text-align: center;
+}
+
+.operation>*{
+    margin:10px auto;
+}
+.operation>div{
+    margin-bottom:10px;
+}
+.operation>div>span{
+    font-size:30px;
+    color:red;
+    padding:0 10px;
+}
+.operation>fieldset{
+    text-align: center;
+    width:70%;
+}
+.operation>fieldset>input{
+    margin:10px 0px;
+}
+
+.begin>input[type='button']{
+    width:100px;
+    height:50px;
+    cursor:pointer;
+}
+.tip>ul{
+    width:200px;
+    text-align:left;
+    list-style-type:none;
+    margin-top:10px;
+}
+
+table.game{
+    border:2px solid #ccc;
+    border-spacing:2px;
+    border-collapse: separate;
+}
+table.game td{
+    background-color:#CCC;
+    width:32px;
+    height:32px;
+    text-align:center;
+    font-size:20px;
+    cursor:pointer;
+    border: 2px outset #EEE;
+    text-indent:-9999px;
+}
+table.game td.show{
+    background-color:#aaa;
+    text-indent:0;
+    background-position:center;
+}
+
+table.game td:hover{
+    background-color:#aaa;
+}
+td.boom{
+    background-image:url(../images/boom.png);
+    background-position:-100px;
+    background-repeat: no-repeat;
+}
+td.flag{
+    background-image:url(../images/flag.png);
+    background-position:center;
+    background-repeat: no-repeat;
+}

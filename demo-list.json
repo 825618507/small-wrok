@@ -71,8 +71,16 @@
             "text": "小游戏"
         },
         {
+            "text": "扫雷",
+            "href": "littleGame/扫雷.html"
+        },
+        {
             "text": "九宫格拼图",
-            "href": "littleGame/puzzle.html"
+            "href": "littleGame/九宫格拼图.html"
+        },
+        {
+            "text": "抓怪物",
+            "href": "littleGame/simple_game.html"
         }]
     },
     {
