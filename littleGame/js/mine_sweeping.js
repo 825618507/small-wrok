@@ -2,6 +2,7 @@ function MineSweeping($oEle, rowCount, colCount, minLandMineCount, maxLandMineCo
     this.$oEle = $oEle;                                 //元素
     this.rowCount = rowCount ||10;                      //行数
     this.colCount = colCount ||10;                      //列数
+    this.count = this.rowCount * this.colCount;         //格子数
     this.landMineCount= 0;                              //地雷个数
     this.minLandMineCount = minLandMineCount ||10;      //最小地雷
     this.maxLandMineCount = maxLandMineCount ||20;      //最大地雷
@@ -44,7 +45,7 @@ MineSweeping.prototype = {
         this.landMineCount =this.range(this.minLandMineCount, this.maxLandMineCount);
 
         //设置数组，随机设置炸弹位置,把炸弹设置为 "boom"  
-        while(boom <= this.landMineCount){
+        while(boom < this.landMineCount){
             randomRow = this.range(0, this.rowCount-1);
             randomCol = this.range(0, this.colCount-1);
             if(this.arrs[randomRow][randomCol]!='boom'){
@@ -63,10 +64,9 @@ MineSweeping.prototype = {
                 var row = $(this).parent('tr').index();
                 var col = $(this).index();
                 if(self.arrs[row][col] == 'boom'){
-                    alert('GAME OVER!');
-                    self.playBool = false;
-                    self.showAll();
-                    self.$oEle.find('td').off('mousedown');
+                    if(!$(this).hasClass('flag')){
+                        self.end('GAME OVER!')
+                    }
                 }else{
                     self.showNoLandMine(row, col);
                 }
@@ -80,7 +80,13 @@ MineSweeping.prototype = {
     //显示非炸弹 和 无雷展开     (刚开始出现了无限循环的错误导致不成功)
     showNoLandMine: function(x, y){
         var $td = this.$oEle.find('tr').eq(x).find('td').eq(y);
-        if(!$td.hasClass('show') && !$td.hasClass('flag')  ){    //解决无线循环
+        if( !$td.hasClass('show') && !$td.hasClass('flag') ){    //解决无线循环
+            
+            this.count--;
+            console.log(this.count - this.landMineCount);
+            if(this.count - this.landMineCount == 0){
+                this.end("Congratulation！");
+            }
             if(this.arrs[x][y] == 0){
                 $td.addClass('show');
                 for(var i=x-1; i<=x+1; i++){
@@ -98,7 +104,7 @@ MineSweeping.prototype = {
                 }
             }else{
                 $td.addClass('show').text(this.arrs[x][y]);
-            }
+            }       
         }
     },
     //显示全部  GAME OVER!  和  胜利
@@ -187,6 +193,12 @@ MineSweeping.prototype = {
     play: function(){
         this.playBool = true;
         this.bindCells();
+    },
+    end: function(text){
+        alert(text);
+        this.playBool = false;
+        this.showAll();
+        this.$oEle.find('td').off('mousedown');
     }
 };
 
