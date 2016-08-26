@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"> 
+    <title></title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        .inputTxt{
+            padding:10px;
+            box-sizing:border-box;
+            margin-left:2px;
+            width:calc(100% - 4px);
+            background-color:#fff;
+            border:inset;
+            text-align:right;
+        }
+        #calcBox{
+            width:300px;
+            margin:100px auto;
+        }
+        .calcTxt,.num{
+            width:100%;
+        }
+        .num tbody, .num tr{
+            width:100%;
+        }
+        .num tr>td{
+            width:70px;
+            padding:15px 0;
+            border:1px solid;
+            text-align:center;
+            border-style:outset;
+            cursor:pointer;
+            transition:0.5s;
+        }
+        .num tr>td:hover{
+            background:#ccc;
+        }
+        .clickBtn{
+            animation:0.5s clickBtn;
+        }
+        @keyframes clickBtn{
+            50%{
+                border-style:inset;
+            }
+            100%{
+                border-style:outset;
+            }
+        }
+    </style>
+    <script src='../js/vue.min.js'></script>
+</head>
+<body>
+    <div id="calcBox">
+        <input type="text" class="inputTxt" disabled="disabled" value='{{inputTxt}}'/>
+        <table class='num' @click='click' >
+            <tbody>
+                <tr>
+                    <td>C</td>
+                    <td>/</td>
+                    <td>*</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td >7</td>
+                    <td>8</td>
+                    <td>9</td>
+                    <td rowspan="2">+</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td rowspan='2'>=</td>
+                </tr>
+                <tr>
+                    <td colspan="2">0</td>
+                    <td>.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        new Vue({
+            el:'#calcBox',
+            data:{
+                inputTxt:'0'
+            },
+            methods:{
+                click:function(event){
+                    const ev = event || window.event;
+                    const target = ev.target || ev.srcElement;
+                    const html = target.innerHTML.toLowerCase();
+                    if(target.tagName.toUpperCase() == 'TD'){
+                        //按钮效果
+                        target.style.borderStyle = 'inset';
+                        setTimeout(function(){
+                            target.style.borderStyle = 'outset';
+                        },100);
+                        if( html != 'c' && html != '='){
+                            if( /\d+/.test(html) ){
+                                if(this.inputTxt == '0'){
+                                    this.inputTxt = '';
+                                }
+                            }
+                            //替换重复运算符
+                            if( /[\/*\-+]/.test(html) ){
+                                this.examLastChar();
+                            }
+                            //更新用户输入的运算
+                            this.inputTxt += html;
+                        }else if(html == 'c'){        //清空
+                            this.inputTxt = '0';
+                        }else if(html == '='){        //求解
+                            try{
+                                //判断最后一个字符,如果是运算符,则去除
+                                this.examLastChar();
+                                //输出结果
+                                this.inputTxt = '' + eval(this.inputTxt);
+                            }catch(error){
+                                alert(error);
+                            }
+                        }
+                    }
+                },
+                examLastChar:function(){
+                    const len = this.inputTxt.length,
+                              lastChar = this.inputTxt.charAt(len-1);
+                    if( /[\/*\-+]/.test(lastChar) ){
+                        //删除最后一个
+                        this.inputTxt = this.inputTxt.substring(0,len-1);
+                    }
+                },
+            }
+        });
+    </script>
+</body>
+</html>
