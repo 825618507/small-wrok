@@ -117,7 +117,7 @@
             "href": "Vue.js/carousel.html"
         },
         {
-            "text": "哔哩哔哩(仿）",
+            "text": "哔哩哔哩(仿）（vue + webpack)",
             "href": "Vue.js/bilibili.html"
         }]
     }
