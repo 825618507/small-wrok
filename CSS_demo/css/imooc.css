@@ -61,7 +61,7 @@ a:link,a:visited{
 }
 
 .news_bar>p{
-    color:rgb(216,216,216); 
+    color:#fff;
 }
 
 .news_bar>p:nth-child(2){
@@ -121,7 +121,7 @@ a:link,a:visited{
     padding:10px 0px;
     text-indent:1.5em;
     background-color:rgb(189,56,71);
-    color:rgb(216,216,216); 
+    color:#fff;
 }
 
 
@@ -136,7 +136,7 @@ a:link,a:visited{
     padding:10px;
     width:35px;
     float:left;
-    color:rgb(216,216,216); 
+    color:#fff;
     border-radius:10px;
     margin-top:10px;
 }

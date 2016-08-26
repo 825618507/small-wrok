@@ -1,0 +1,48 @@
+*{
+    margin:0;
+    padding:0;
+}
+a{
+    color:#fff;
+    text-decoration:none;}
+#wrap{
+    width:400px;
+    margin:50px auto;
+    padding:10px;
+    border:10px solid #EEE;
+    border-radius:15px;}
+#wrap dl{
+    overflow:hidden;
+    height:40px;
+    line-height:40px;
+    color:#fff;
+}
+#wrap dl dt{
+    background:#9C0;
+    height:40px;
+    line-height:40px;
+    margin:1px 0px;
+    cursor:pointer;
+    font-size:18px;
+}
+#wrap dl a{
+    display:block;
+    height:30px;
+}
+#wrap dl dd{
+    background:#7CF;
+    border-bottom:1px solid #fff;
+    height:30px;
+    line-height:30px;
+    font-size:14px;
+}
+#wrap dl dd,#wrap dl dt{
+    padding-left:10px;
+    box-sizing:border-box;
+}
+#wrap dl:hover{
+    color:blue;
+}
+#wrap dl a:hover,#wrap dl a:hover:active{
+    color:red;
+}

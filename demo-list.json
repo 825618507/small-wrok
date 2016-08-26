@@ -1,10 +1,10 @@
 [
     {
         "project": [{
-            "text": "CSS_domo"
+            "text": "CSS"
         },
         {
-            "text": "Demo1",
+            "text": "新世界",
             "href": "CSS_demo/task1-7.html"
         },
         {
@@ -12,49 +12,45 @@
             "href": "CSS_demo/imooc.html"
         },
         {
-            "text": "Demo2",
-            "href": "CSS_demo/task1-9.html"
-        },
-        {
-            "text": "Demo3",
-            "href": "CSS_demo/task1-6.html"
-        },
-        {
-            "text": "Demo4",
-            "href": "CSS_demo/task1-5.html"
+            "text": "时钟(css3)",
+            "href": "CSS_demo/css3时钟.html"
         },
         {
             "text": "京东导航菜单",
             "href": "CSS_demo/京东导航菜单.html"
+        },
+        {
+            "text": "无缝滚动",
+            "href": "CSS_demo/无缝滚动.html"
+        },
+        {
+            "text": "杯子",
+            "href": "CSS_demo/杯子.html"
         }]
     },
     {
         "project": [{
-            "text": "js/jQuery"
-        },
-        {
-            "text": "回到顶部",
-            "href": "js_demo/回到顶部.html"
+            "text": "javaScript"
         },
         {
             "text": "二叉树",
             "href": "js_demo/二叉树.html"
         },
         {
-            "text": "B站硬币跳动",
-            "href": "js_demo/B站硬币跳动.html"
-        },
-        {
             "text": "表格（排序，添加，删除，查找）",
             "href": "js_demo/表格（排序，添加，删除，查找）.html"
         },
         {
-            "text": "二级菜单",
-            "href": "js_demo/二级菜单.html"
+            "text": "扇形导航",
+            "href": "js_demo/扇形导航.html"
         },
         {
             "text": "苹果导航菜单",
             "href": "js_demo/苹果导航菜单.html"
+        },
+        {
+            "text": "二级菜单",
+            "href": "js_demo/二级菜单.html"
         },
         {
             "text": "拖曳",
@@ -63,10 +59,6 @@
         {
             "text": "字体间隔滚动",
             "href": "js_demo/字体间隔滚动.html"
-        },
-        {
-            "text": "无缝图片移动",
-            "href": "js_demo/无缝图片移动.html"
         }]
         
     },
@@ -83,6 +75,10 @@
             "href": "littleGame/九宫格拼图.html"
         },
         {
+            "text": "祖玛",
+            "href": "littleGame/祖玛小游戏.html"
+        },
+        {
             "text": "抓怪物",
             "href": "littleGame/抓怪物.html"
         }]
@@ -96,16 +92,12 @@
             "href": "canvas/倒计时.html"
         },
         {
-            "text": "canvas交互",
-            "href": "canvas/canvas交互.html"
-        },
-        {
             "text": "球体运动",
             "href": "canvas/球体运动.html"
         },
         {
-            "text": "缩放（如直播摄像头）",
-            "href": "canvas/缩放（如直播摄像头）.html"
+            "text": "canvas交互",
+            "href": "canvas/canvas交互.html"
         },
         {
             "text": "调控Bezier二次曲线",
@@ -114,6 +106,19 @@
         {
             "text": "探照灯",
             "href": "canvas/探照灯.html"
+        }]
+    },
+    {
+        "project": [{
+            "text": "Vue.js"
+        },
+        {
+            "text": "carousel",
+            "href": "Vue.js/carousel.html"
+        },
+        {
+            "text": "哔哩哔哩(仿）",
+            "href": "Vue.js/bilibili.html"
         }]
     }
 ]

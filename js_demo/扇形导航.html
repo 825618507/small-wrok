@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>扇形导航</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"> 
+    <title></title>
+    <style>
+        .tips{
+            width:200px;
+            margin:100px auto;
+            font-size:20px;
+            color:red;
+        }
+       .menu{
+            position:fixed;
+            right:0px;
+            bottom:0px;
+            margin:100px;
+       }
+       .home{
+            background-image: url('../image/love.png');
+            background-size:50px 50px;
+            transition:1s;
+            cursor:pointer;
+            position:absolute;
+            left:0;right:0;
+       }
+       .home,.menu_list>a,.menu_list>a>img{
+            width:50px;
+            height:50px;
+       }
+       .menu>.menu_list>a{
+            position:absolute;
+            left:0px;
+            top:0px;
+            opacity:0;
+       }
+    </style>
+</head>
+<body>
+    <div class='tips'>可点击爱心和展开标签</div>
+    <div class="menu">
+        <nav class="menu_list">
+            <a href="#"><img src="../image/1.png" alt="../image/1.png" /></a>
+            <a href="#"><img src="../image/2.png" alt="../image/2.png" /></a>
+            <a href="#"><img src="../image/3.png" alt="../image/3.png" /></a>
+            <a href="#"><img src="../image/4.png" alt="../image/4.png" /></a>
+            <a href="#"><img src="../image/5.png" alt="../image/5.png" /></a>
+            <div class='home'></div>
+        </nav>
+    </div>
+    <script>
+        const oHome = document.getElementsByClassName('home')[0];
+        const aLi = document.getElementsByTagName('a');
+        const iR = -150;
+        let bOff = true;
+        for(let i=0,len=aLi.length; i<len; i++){
+            aLi[i].onclick = function(event){
+                this.style.transition = '0.3s';
+                this.style.transform = 'scale(2)';
+                this.style.opacity = '0.1';
+                setTimeout(clickEnd.bind(this), 200);
+            }
+        }
+        function clickEnd(){
+            this.style.transition = '0.1s';
+            this.style.transform = 'scale(1)';
+            this.style.opacity = 1;
+        }
+        oHome.onclick = function(event){
+            if(bOff){
+                this.style.transform = 'rotate(-720deg)';
+                for(let i=0,len=aLi.length; i<len; i++){
+                    let oLt = calcLeftTop(iR, 90/4*i);
+                    
+                    aLi[i].style.transition = "all 0.5s " + i*100 + "ms";
+                    aLi[i].style.opacity = 1;
+                    aLi[i].style.left = oLt.left + 'px';
+                    aLi[i].style.top = oLt.top + 'px';
+                    aLi[i].style.transform = 'rotate(-720deg)';
+                }
+            }else{
+                this.style.transform = 'rotate(0deg)';
+                for(let i=0,len=aLi.length; i<len; i++){
+                    aLi[i].style.transition = "all 0.5s " + (len-i)*100 + "ms";
+                    aLi[i].style.opacity = 0;
+                    aLi[i].style.left = '0px';
+                    aLi[i].style.top = '0px';
+                    aLi[i].style.transform = 'rotate(0deg)';
+                }
+            }
+
+            bOff = !bOff;
+        }
+
+        function calcLeftTop(iR, iDeg){
+            let left =  Math.round( Math.sin(iDeg/180*Math.PI) * iR ),
+                top =  Math.round( Math.cos(iDeg/180*Math.PI) * iR );
+
+            return {left:left, top:top};
+        }
+    </script>
+</body>
+</html>

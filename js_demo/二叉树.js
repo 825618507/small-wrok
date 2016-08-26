@@ -27,23 +27,42 @@ window.onload = function(){
             }
             render(binaryTree.tree);
         }else{
-            isRender = !confirm('正在遍历中，是否取消');
+            isRender = !confirm('正在遍历中，是否取消刚刚的遍历');
             if(!isRender){    //暂停;
                 clearTimeout(timeOut);
+                this.click();
             }
         }  
     };
     bfsBtn.onclick = function(event){
-        var txt = searchTxt.value;
-        binaryTree.clear();
-        binaryTree.bfsTraverse(root);
-        render(binaryTree.tree,txt);
+        if(isRender == false){
+            var txt = searchTxt.value;
+            binaryTree.clear();
+            binaryTree.bfsTraverse(root);
+            render(binaryTree.tree,txt);
+        }else{
+            isRender = !confirm('正在遍历中，是否取消刚刚的遍历');
+            if(!isRender){
+                clearTimeout(timeOut);
+                this.click();
+            }
+        }
+        
+        
     };
     dftBtn.onclick = function(event){
-        var txt = searchTxt.value;
-        binaryTree.clear();
-        binaryTree.dftTraverse(root);
-        render(binaryTree.tree,txt);
+        if(isRender == false){
+            var txt = searchTxt.value;
+            binaryTree.clear();
+            binaryTree.dftTraverse(root);
+            render(binaryTree.tree,txt);
+        }else{
+            isRender = !confirm('正在遍历中，是否取消刚刚的遍历');
+            if(!isRender){
+                clearTimeout(timeOut);
+                this.click();
+            }
+        }
     }
     function render(arr,value){
         var i = 0, len = arr.length;
