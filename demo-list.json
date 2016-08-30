@@ -117,6 +117,10 @@
             "href": "Vue.js/carousel.html"
         },
         {
+            "text": "计算器",
+            "href": "Vue.js/计算器.html"
+            },
+        {
             "text": "哔哩哔哩(仿）（vue + webpack)",
             "href": "Vue.js/bilibili.html"
         }]
