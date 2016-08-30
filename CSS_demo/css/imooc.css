@@ -1,0 +1,173 @@
+*{
+    margin:0;
+    padding:0;
+}
+
+a:link,a:visited{
+    text-decoration:none;
+    color:#000;
+}
+
+.clearfix:after{
+    content:'.';
+    display:block;
+    height:0;
+    clear:both;
+    visibility:hidden;
+}
+
+.header{
+    width:980px;
+    margin:0 auto;
+}
+
+.header>a{
+    float:left;
+}
+
+.header nav{
+    float:left;
+}
+
+.header nav a{
+    display:inline-block;
+    height:70px;
+    padding:0 20px;
+    line-height:70px;
+}
+
+.header nav a:hover,.header nav a:active,.header nav a.active{
+    background-color:rgb(189,56,71);
+}
+
+/*middle*/
+.main{
+    width:980px;
+    margin:10px auto;
+}
+
+#picBox{
+    width:980px;
+    height:350px;
+}
+
+#picBox .pic img{
+    width:980px;
+    height:350px;
+}
+
+.news_bar{
+    margin:20px 0px;
+}
+
+.news_bar>p{
+    color:#fff;
+}
+
+.news_bar>p:nth-child(2){
+    text-indent:40px;
+    padding:10px 0px;
+    background:rgb(62,62,62);
+}
+
+.news_bar>p:first-child{
+    float:left;
+    padding:10px 40px;
+    background-color:rgb(189,56,71);
+}
+
+.news_every>div{
+    width:320px;
+    box-sizing:border-box;
+    margin-right:10px;
+    
+    text-align:center;
+    float:left;
+    font-weight:bold;
+    font-size:18px;
+}
+
+.news_every>div:last-child{
+    margin-right:0;
+}
+
+.news_every>div>img{
+    width:320px;
+}
+
+.others{
+    margin-top:20px;
+    overflow: hidden;
+}
+
+.others>div{
+    width:320px;
+    margin-right:10px;
+    float:left;
+    box-sizing:border-box;
+
+}
+
+.others>div>div.content{
+    border:1px solid rgb(216,216,216); 
+    height:300px;
+}
+
+.others>div:last-child{
+    margin-right:0;
+}
+
+.others>div>div.title{
+    padding:10px 0px;
+    text-indent:1.5em;
+    background-color:rgb(189,56,71);
+    color:#fff;
+}
+
+
+.information div.news{
+    padding:10px;
+    border-bottom:1px solid rgb(216,216,216);
+
+}
+
+.information div.date{
+    background-color:rgb(189,56,71);
+    padding:10px;
+    width:35px;
+    float:left;
+    color:#fff;
+    border-radius:10px;
+    margin-top:10px;
+}
+
+.information div.info{
+    width:225px;
+    float:right;
+}
+
+.information div.info>h5{
+    margin-bottom:10px;
+}
+    
+.activity img{
+    padding:10px;
+    width:300px;
+    height:150px;
+}
+
+.activity p{
+    padding:0 0 5px 10px;
+}
+.contact .content{
+    padding:10px;
+}
+footer{
+    width:980px;
+    padding:20px 0;
+    margin:0 auto;
+    background:rgb(231,231,231);
+    text-align:center;
+    font-family:'微软雅黑';
+    font-weight:bold;
+}

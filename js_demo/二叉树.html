@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>二叉树</title>
+        <style>
+            #control{
+                width:700px;
+                margin:20px auto;
+                text-align:center;
+            }
+            #control button,#control input{
+                padding:8px;
+            }
+            #root{
+                width:95%;
+                height:500px;
+                margin:20px auto;
+                border:1px solid #000;
+                box-sizing:border-box;
+                text-align:center;
+            }
+            #root div{
+                width: calc(50% - 75px);      
+                height: calc(100% - 60px);
+                box-sizing:border-box;
+                border:1px solid #000;
+                margin:30px 0 0 45px;
+                float:left;
+                background-color:#fff;
+                word-wrap:break-word;
+            }
+            #root>div>div>div{
+                width: calc(50% - 45px);
+                margin:30px 0 0 15px;
+                float:left;
+            }
+
+            .search{
+                margin-top:20px;
+            }   
+        </style>
+    </head>
+    <body>
+        <div id='control'>
+            <div class='traverse'></div>
+            <button class='preBtn'>前序遍历</button>
+            <button class='inBtn'>中序遍历</button>
+            <button class='postBtn'>后序遍历</button>
+            <div class='search'>
+                <input type="text" placeholder='需要搜索的词' id='search' value='iphone6' />
+                <button>广度优先搜索</button>
+                <button>深度优先搜索</button>
+            </div>
+        </div>
+        <div>
+            <div id='root'>root
+                <div>phone
+                    <div>iphone
+                        <div>iphone4S</div>
+                        <div>iphone6</div>
+                    </div>
+                    <div>Android
+                        <div>小米</div>
+                        <div>魅族</div>
+                    </div>
+                </div>
+                <div>foot
+                    <div>meat
+                        <div>chicken</div>
+                        <div>beef</div>
+                    </div>
+                    <div>fruit
+                        <div>mango</div>
+                        <div>apple</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src='二叉树.js' type='text/javascript'></script>
+    </body>
+</html>

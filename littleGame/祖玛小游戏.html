@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+ <head> 
+  <meta charset="utf-8"> 
+  <title>祖玛小游戏</title> 
+  <style>
+    *{
+        padding:0;
+        margin:0;
+    }
+    canvas{
+       display:block;
+       margin:0 auto;
+       border:1px solid;
+    }
+  </style> 
+ </head> 
+ <body> 
+    <canvas id='zumaGame'></canvas>
+    <script>
+        (function(){
+            const canvas = document.getElementById('zumaGame'),
+                  context = canvas.getContext("2d"),
+                  iR_big = 300,
+                  iR_small = iR_big - 75,
+                  img = new Image();
+            let aBalls = [],
+                aBullet = [],
+                iDeg = 0;
+
+            img.src = 'person.png';
+            canvas.width = 980;
+            canvas.height = 600;
+            //img
+            img.onload = function(){
+                //增加小球
+                let addBall = function(){
+                    setTimeout(function(){
+                        let aball = new CreateBall(canvas.width/2, 10, 20);
+                        aBalls.push(aball);
+                        addBall();
+                    },350);
+                };
+                addBall();
+                //运动
+                setInterval(function(){
+                    //移动小球
+                    for(let i=0,len=aBalls.length; i<len; i++){
+                        let iR = iR_big;
+                        aBalls[i].deg++;
+                        //换轨道
+                        if(aBalls[i].deg == 270)
+                        {
+                            aBalls[i].R = iR_small;
+                            aBalls[i].beginX -= 75; 
+                            aBalls[i].beginY += 75;
+                        }
+                        if(aBalls[i].deg == 360 + 91){
+                            alert('游戏失败');
+                            window.location.reload();
+                        }
+                        aBalls[i].x = aBalls[i].beginX  + aBalls[i].R * Math.sin(aBalls[i].deg/180*Math.PI);
+                        aBalls[i].y = aBalls[i].beginY + aBalls[i].R - aBalls[i].R * Math.cos(aBalls[i].deg/180*Math.PI);
+                    }
+                    for(let i=0,len=aBullet.length; i<len; i++){
+
+                        //去除 出界的发射球
+                        if(aBullet[i].x  + 20 < 0 || aBullet[i].y + 20 < 0){
+                            aBullet.splice(i, 1);
+                            i++;
+                            return;
+                        }
+                        for(let j=0,length=aBalls.length; j<length; j++){
+                            let x = aBalls[j].x - aBullet[i].x,
+                                y = aBalls[j].y - aBullet[i].y,
+                                c = Math.sqrt(x*x + y*y);       //2个圆心距离
+                            //相撞
+                            if(c < 2*20){
+                                aBalls.splice(j, 1);
+                                aBullet.splice(i, 1);
+                                j++;
+                                i++;
+                                return;
+                            }
+                        }
+                        
+                        aBullet[i].x += 8*Math.sin(aBullet[i].deg);
+                        aBullet[i].y += 8*Math.cos(aBullet[i].deg);
+                    }
+                    
+                    render(iDeg);
+                },1000/60);
+                canvas.onmousemove = function(event){
+                    const   x = event.clientX - canvas.getBoundingClientRect().left,
+                            y = event.clientY - canvas.getBoundingClientRect().top, 
+                            iRotate = calcRotate(canvas.width/2, canvas.height/2, x, y);
+                    iDeg = iRotate;
+                }
+                
+                canvas.onclick = function(event){
+                    const   x = event.clientX - canvas.getBoundingClientRect().left,
+                            y = event.clientY - canvas.getBoundingClientRect().top,
+                            iRotate = calcRotate(canvas.width/2, canvas.height/2, x, y);
+
+                    let c = Math.sqrt(x*x + y*y);
+
+                    let bullet = createBullet(canvas.width/2, canvas.height/2, 20, -iRotate);
+                    aBullet.push(bullet);
+                }
+            }
+            function render(){
+                context.clearRect(0, 0, canvas.width, canvas.height);
+
+                context.beginPath();
+                context.arc(canvas.width/2, canvas.height/2, iR_big, -90/180*Math.PI, Math.PI, false);
+                context.arc(canvas.width/2 - 75, canvas.height/2,  iR_small, -Math.PI, 0, false);
+                context.stroke();
+                //finish
+                context.beginPath();
+                context.arc(canvas.width/2 + 75*2, canvas.height/2, 20, 0, 2*Math.PI, false);
+                context.stroke();
+                //img
+                
+                context.save();
+                context.translate(canvas.width/2, canvas.height/2);
+                context.rotate(iDeg);
+                context.translate(-40, -40);
+                context.drawImage(img, 0, 0);
+                context.restore();
+
+                for(let i=0,len=aBalls.length; i<len; i++){
+                    context.beginPath();
+                    context.arc(aBalls[i].x, aBalls[i].y, aBalls[i].r, 0, 2*Math.PI, false);
+                    context.fill();
+                }
+                context.save();
+                for(let i=0,len=aBullet.length; i<len; i++){
+                    context.beginPath();
+                    context.arc(aBullet[i].x, aBullet[i].y, aBullet[i].r, 0, 2*Math.PI, false);
+                    const color = 'rgb(' + parseInt(Math.random()*255) + ',' + parseInt(Math.random()*255) + ',' + parseInt(Math.random()*255) + ')';
+                    context.fillStyle = color;
+                    context.fill();
+                }
+                context.restore();
+            }
+            function CreateBall(x, y, r){
+                this.x = x;
+                this.y = y;
+                this.r = r;
+                this.R = iR_big;
+                this.deg = 0;
+                this.beginX = canvas.width/2;
+                this.beginY = 0;
+            }
+            function createBullet(x, y, r, deg){
+                let bullet = {
+                    x: x,
+                    y: y,
+                    r: r,
+                    deg: deg
+                }
+                return bullet;
+            }
+            function calcRotate(x, y, cX, cY){
+                const height = cY - y,
+                      width = cX - x;
+                if(width >= 0){
+                    if(height >= 0){
+                        iRotate = - Math.atan(width/height);
+                    }else{
+                        iRotate =  Math.atan(height/width) - 90/180*Math.PI;
+                    }
+                }else{
+                    if(height >= 0){
+                        iRotate = - Math.atan(width/height);
+                    }else{
+                        iRotate =  Math.atan(height/width) + 90/180*Math.PI;
+                    }
+                }
+                return iRotate;
+            }
+        })();
+    </script>
+ </body>
+</html>

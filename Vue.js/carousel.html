@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>carousel</title>
+        <style>
+            #app{
+                width:440px;
+                height:220px;
+                margin:100px auto;
+            }
+            .auto_play_wrap,.auto_play_wrap img{
+                width:440px;
+                height:100%;
+            }
+            .auto_play_wrap{
+                overflow:hidden;
+                position:relative;
+            }
+            .auto_play_wrap>.box{
+                width:100%;
+                height:100%;
+                left:0;
+                position:relative;
+                transition:1s ease-out;
+            }
+            .preview{
+                width:100%;
+                height:100%;
+                position:absolute;
+            }
+            .auto_play_wrap .topic{
+                position:absolute;
+                width:100%;
+                height:35px;
+                line-height:35px;
+                font-size:20px;
+                box-sizing:border-box;
+                background:linear-gradient(transparent,rgba(0,0,0,0.1) 20%,rgba(0,0,0,0.2) 35%,rgba(0,0,0,0.5) 65%,rgba(0,0,0,0.66));
+                bottom:0;
+                color:#fff;
+                padding:0 10px;
+            }
+            nav.control{
+                width:100%;
+                height:22px;
+                left:0;
+                position:absolute;
+                bottom:0;
+            }
+            nav.control>div{
+                float:right;
+                width:10px;
+                height:10px;
+                border-radius:50%;
+                background-color:#fff;
+                margin:0 5px;
+                cursor:pointer;
+            }
+            nav.control>div:hover, nav.control>div.active{
+                background-color:red;
+            }
+            .put_left,.put_right{
+                position:absolute;
+                width:30px;
+                height:50px;
+                background:rgba(0,0,0,0.7);
+                top:calc(50% - 15px);
+                text-align:center;
+                line-height:50px;
+                color:#fff;
+                font-size:30px;
+                cursor:pointer;
+                display:none;
+                
+            }
+            .auto_play_wrap:hover .put_right,.auto_play_wrap:hover .put_left{
+                display:block;
+            }
+            .put_right{
+                right:0;
+            }
+            /*ie*/
+            .preview_1{
+                left:100%;
+            }
+            .preview_2{
+                left:200%;
+            }
+            .preview_3{
+                left:300%;
+            }
+            .preview_4{
+                left:400%;
+            }
+            .preview_5{
+                left:500%;
+            }
+            .preview_6{
+                left:600%;
+            }
+        </style>
+        <script src='../js/vue.min.js'></script>
+    </head>
+    <body>
+        <div id="app">
+            <div class='auto_play_wrap'>
+                <div class='box' v-el:box>
+                    <div v-for='i of len' class='preview_{{i}} preview' >
+                        <a href='{{imformation[i].src}}'>
+                            <img src="{{imformation[i].img}}" alt="{{imformation[i].topic}}" />
+                        <a>
+                        <div class='topic'>{{imformation[i].topic}}</div>
+                    </div>
+                </div>
+                <nav class='control' @click='click' v-el:nav>
+                    <div href="#" class='active'></div>
+                    <div href="#" v-for='i in len-1'></div>
+                </nav>
+                <div class='put_left' @click='analogClick(++this.index)' ><</div>
+                <div class='put_right' @click='analogClick(--this.index)' >></div>
+            </div>
+        </div>
+        <script>
+            new Vue({
+                el:'#app',
+                data:{
+                        imformation:[
+                            {
+                                src:'#', 
+                                img:'http://i0.hdslb.com/bfs/archive/c5935a67bc180f6e49fe2dcce340bd53c3ce909a.jpg', 
+                                topic: 'topic_1' 
+                            },
+                            { 
+                                src:'#', 
+                                img:'http://acg.tv/u1l1', 
+                                topic: 'topic_2' 
+                            },
+                            { 
+                                src:'#', 
+                                img:'http://i0.hdslb.com/bfs/archive/e76dfece7ca583ce5eaccf74d81227557c352b31.jpg', 
+                                topic: 'topic_3' 
+                            },
+                            { 
+                                src:'#', 
+                                img:'http://i0.hdslb.com/bfs/archive/46f8d94923a1e55632436b93c65e42ffcd2ac9be.jpg', 
+                                topic: 'topic_4' 
+                            },
+                        ],
+                        delay:1500,
+                        index:0,
+                },
+                methods:{
+                    click: function(event){
+                        const ev= event || event.window;
+                        const target = ev.target || event;
+                        if(target.tagName == 'DIV'){
+                            for(let i=0,len=this.$els.nav.children.length; i<len; i++){
+                                this.$els.nav.children[i].classList.remove('active');
+                                //算出目标事件位置
+                                if(this.$els.nav.children[i] == target){
+                                    //更改index
+                                    this.index = i;
+                                }
+                            }
+                            this.$els.box.style.left = this.index * (-100) + '%';
+                            target.classList.add('active');
+                        }
+                    },
+                    analogClick:function(){
+                        const max = this.len;
+                        if(this.index == max){
+                            this.index = 0;
+                        }else if(this.index == -1){
+                            this.index = max - 1;
+                        }
+                        this.click(this.$els.nav.children[this.index]);
+                    },
+                    autoPlay:function(){
+                        const self = this,
+                              length = self.len - 1;
+                        //初始化（模拟点击）
+                        self.click(self.$els.nav.children[self.index]);
+                        let timer = function(){
+                            let timeOut = setTimeout(function(){
+                                    self.analogClick(++self.index);
+                                    timer();
+                                },self.delay);
+                            //鼠标移出
+                            self.$el.onmouseover = function(){
+                                clearTimeout(timeOut);
+                            };
+                            //鼠标移入
+                            self.$el.onmouseout = function(){
+                                timer();
+                            }
+                        }
+
+                        timer();
+                    }
+                },
+                computed:{
+                    len:function(){
+                        return this.imformation.length;
+                    }
+                },
+                ready(){
+                    this.autoPlay();
+                }
+            });
+        </script>
+    </body>
+</html>

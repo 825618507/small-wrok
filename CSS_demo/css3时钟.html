@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"> 
+    <title></title>
+    <style>
+        .clock{
+            position:relative;
+            width:300px;
+            margin:70px auto;
+            height:300px;
+        }
+        .kedu{
+            width:100%;
+            height:100%;
+            border-radius:50%;
+            border:1px solid #000;
+            list-style-type:none;
+            padding:0;
+            position:relative;
+        }
+        .kedu>li{
+            width:2px;
+            height:10px;
+            position:absolute;
+            background:#000;
+            left:calc(50% - 1px);
+            transform-origin:0px 150px;
+            transform:rotate( 0deg );
+        }
+        .kedu>li:nth-of-type(5n+1){
+            height:20px;
+        }
+        .icon,.hour,.min,.sec{
+            position:absolute;
+            
+        }
+        .icon{
+            width:20px;
+            height:20px;
+            border-radius:50%;
+            background:#000;
+            top:calc( 50% - 10px );
+            left:calc( 50% - 10px );
+            z-index:100;
+        }
+        .hour,.min,.sec{
+            left:50%;
+            border-radius:0px 40% 40% 0;
+            transform-origin:left;
+        }
+        .sec{
+            width:110px;
+            height:7px;
+            background:#000;
+            top:calc(50% - 3.5px);
+            left:50%;
+            border-radius:0px 40% 40% 0;
+            z-index:10;
+        }
+        .min{
+            width:90px;
+            height:9px;
+            background-color:red;
+            top:calc(50% - 4.5px);
+            z-index:15;
+        }
+        .hour{
+            width:70px;
+            height:10px;
+            background:#ccc;
+            top:calc(50% - 5px);
+            z-index:20;
+        }
+    </style>
+</head>
+<body>
+    <div class='clock' draggable='true'>
+        <ul class='kedu'></ul>
+        <div class='icon'></div>
+        <div class='hour'></div>
+        <div class='min'></div>
+        <div class='sec'></div>
+    </div>
+    <script>
+
+        let oUl = document.getElementsByClassName('kedu')[0],
+            css = document.getElementsByTagName('style')[0],
+            aLi = '',
+            liCss = '';
+        //刻度
+        for(let i=0;i<60;i++){
+            liCss += '.kedu>li:nth-of-type(' + (i+1) +'){transform:rotate(' + (6*i) + 'deg);}';
+            aLi += '<li></li>';
+        }
+        oUl.innerHTML = aLi;
+        css.innerHTML += liCss;
+
+        //指针
+        let oHour = document.getElementsByClassName('hour')[0], 
+            oMin = document.getElementsByClassName('min')[0],
+            oSec = document.getElementsByClassName('sec')[0];
+        getTime();
+        setInterval(getTime,1000);
+        function getTime(){
+            let oDate = new Date(),
+                iSec = oDate.getSeconds(),
+                iMin = oDate.getMinutes() + iSec/60,
+                iHour = oDate.getHours() + iMin/60;
+                
+                
+
+            oHour.style.transform = 'rotate(' +  (iHour*30-90) + 'deg)';
+            oMin.style.transform = 'rotate(' +  (iMin*6-90) + 'deg)';
+            oSec.style.transform = 'rotate(' +  (iSec*6-90) + 'deg)';
+        }
+
+    </script>
+</body>
+</html>
