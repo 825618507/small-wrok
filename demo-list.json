@@ -123,6 +123,11 @@
         {
             "text": "哔哩哔哩(仿）（vue + webpack)",
             "href": "Vue.js/bilibili.html"
+        },
+        {
+            "text": "App",
+            "href": "Vue.js/app/app.html"
         }]
+
     }
 ]
